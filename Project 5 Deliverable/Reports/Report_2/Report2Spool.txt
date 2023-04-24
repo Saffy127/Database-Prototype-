@@ -1,0 +1,29 @@
+SQL> -- Top 3 Highest-Rated Products
+SQL> 
+SQL> COLUMN product_name FORMAT A20
+SQL> COLUMN avg_rating FORMAT 999.99
+SQL> TTITLE 'Top 3 Highest-Rated Products'
+SQL> BTITLE 'End of Report'
+SQL> 
+SQL> SELECT P.product_name, AVG(R.rating) AS avg_rating
+  2  FROM Product P
+  3  JOIN Review R ON P.product_id = R.product_id
+  4  GROUP BY P.product_name
+  5  ORDER BY avg_rating DESC
+  6  FETCH FIRST 3 ROWS ONLY;
+
+Sun Apr 23                                                             page    1
+                          Top 3 Highest-Rated Products
+
+PRODUCT_NAME         AVG_RATING                                                 
+-------------------- ----------                                                 
+Wireless Earbuds           5.00                                                 
+Laptop                     5.00                                                 
+Smart TV                   5.00                                                 
+
+
+
+
+                                 End of Report
+
+SQL> SPOOL OFF

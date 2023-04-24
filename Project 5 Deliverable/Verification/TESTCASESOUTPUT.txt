@@ -1,0 +1,83 @@
+SQL> -- Test data
+SQL> INSERT INTO Product (product_id, product_name, category_id, supplier_id) VALUES (100, 'Test Product', 1, 1);
+INSERT INTO Product (product_id, product_name, category_id, supplier_id) VALUES (100, 'Test Product', 1, 1)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C008138) violated 
+
+
+SQL> 
+SQL> -- Test query
+SQL> SELECT * FROM Product WHERE product_id = 100;
+
+Sun Apr 23                                                             page    1
+                          Top 3 Best-Selling Products
+
+PRODUCT_ID PRODUCT_NAME         CATEGORY_ID SUPPLIER_ID                         
+---------- -------------------- ----------- -----------                         
+       100 Test Product                   1           1                         
+
+
+                                 End of Report
+
+SQL> 
+SQL> -- Expected result: A single row containing the test product's data should be returned.
+SQL> -- Test data
+SQL> INSERT INTO "Order" (order_id, customer_id, order_date) VALUES (100, 9999, TO_DATE('2023-05-01', 'YYYY-MM-DD'));
+INSERT INTO "Order" (order_id, customer_id, order_date) VALUES (100, 9999, TO_DATE('2023-05-01', 'YYYY-MM-DD'))
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.FK_ORDER_CUSTOMER_ID) violated - parent 
+key not found 
+
+
+SQL> 
+SQL> -- Test query
+SQL> SELECT * FROM "Order" WHERE order_id = 100;
+
+no rows selected
+
+SQL> 
+SQL> -- Expected result: An error should be raised due to the foreign key constraint violation, and no row with order_id = 100 should be inserted into the "Order" table.
+SQL> -- Test query
+SQL> SELECT P.product_name, COUNT(oi.product_id) AS total_sales
+  2  FROM Product P
+  3  JOIN Order_Item oi ON P.product_id = oi.product_id
+  4  GROUP BY P.product_name
+  5  ORDER BY total_sales DESC;
+
+Sun Apr 23                                                             page    1
+                          Top 3 Best-Selling Products
+
+PRODUCT_NAME         TOTAL_SALES                                                
+-------------------- -----------                                                
+Wireless Earbuds               1                                                
+Smart TV                       1                                                
+Laptop                         1                                                
+                                 End of Report
+
+Sun Apr 23                                                             page    2
+                          Top 3 Best-Selling Products
+
+PRODUCT_NAME         TOTAL_SALES                                                
+-------------------- -----------                                                
+Tablet                         1                                                
+Gaming Console                 1                                                
+Smartphone                     1                                                
+                                 End of Report
+
+Sun Apr 23                                                             page    3
+                          Top 3 Best-Selling Products
+
+PRODUCT_NAME         TOTAL_SALES                                                
+-------------------- -----------                                                
+Refrigerator                   1                                                
+Microwave Oven                 1                                                
+Headphones                     1                                                
+                                 End of Report
+
+9 rows selected.
+
+SQL> 
+SQL> -- Expected result: The result should display each product's name along with the total number of orders for that product, sorted by the total_sales in descending order.
+SQL> SPOOL OFF

@@ -1,0 +1,42 @@
+SQL> -- Report 1: Products and their categories
+SQL> COLUMN product_name FORMAT A20
+SQL> COLUMN category_name FORMAT A20
+SQL> TTITLE 'Products and their Categories'
+SQL> BTITLE 'End of Report'
+SQL> 
+SQL> SELECT P.product_name, C.category_name
+  2  FROM Product P
+  3  JOIN Category C ON P.category_id = C.category_id
+  4  ORDER BY C.category_name, P.product_name;
+
+Sun Apr 23                                                             page    1
+                         Products and their Categories
+
+PRODUCT_NAME         CATEGORY_NAME                                              
+-------------------- --------------------                                       
+Headphones           Audio                                                      
+Wireless Earbuds     Audio                                                      
+Laptop               Computers                                                  
+Tablet               Computers                                                  
+Smart TV             Electronics                                                
+Gaming Console       Gaming                                                     
+Microwave Oven       Kitchen Appliances                                         
+                                 End of Report
+
+Sun Apr 23                                                             page    2
+                         Products and their Categories
+
+PRODUCT_NAME         CATEGORY_NAME                                              
+-------------------- --------------------                                       
+Refrigerator         Kitchen Appliances                                         
+Smartphone           Smartphones                                                
+
+
+
+
+
+                                 End of Report
+
+9 rows selected.
+
+SQL> SPOOL OFF

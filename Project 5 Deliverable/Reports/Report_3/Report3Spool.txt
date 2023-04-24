@@ -1,0 +1,25 @@
+SQL> -- Report 3: Supplier Report
+SQL> SET LINESIZE 80
+SQL> SET PAGESIZE 10
+SQL> COLUMN supplier_name FORMAT A20
+SQL> COLUMN product_count FORMAT 999
+SQL> TTITLE 'Supplier Report'
+SQL> BTITLE 'End of Report'
+SQL> 
+SQL> SELECT S.supplier_name, COUNT(P.product_id) AS product_count
+  2  FROM Supplier S
+  3  JOIN Product P ON S.supplier_id = P.supplier_id
+  4  GROUP BY S.supplier_name
+  5  ORDER BY S.supplier_name;
+
+Sun Apr 23                                                             page    1
+                                Supplier Report
+
+SUPPLIER_NAME        PRODUCT_COUNT                                              
+-------------------- -------------                                              
+GizmoHub                         3                                              
+HomeBase                         3                                              
+TechMart                         3                                              
+                                 End of Report
+
+SQL> SPOOL OFF
